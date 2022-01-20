@@ -17,6 +17,7 @@
 ![Screenshot](assets/images/employeeList.jpg)
 ![Screenshot](assets/images/deptList.jpg)
 ![Screenshot](assets/images/rolesList.jpg)
+![Video](assets/images/testVidv1.mp4)
 ## Credits
 
 ## License

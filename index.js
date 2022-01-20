@@ -12,21 +12,9 @@ const db = mysql.createConnection(
 );
 
 const roles = [];
-function getRoles() {
-    db.query(`SELECT * FROM role;`, (err, res) => {
-        for (let i = 0; i < res.length; i++) {
-            roles.push(res[i].title)
-        };
-    });
-};
+
 const employees = [];
-function getEmployees() {
-    db.query(`SELECT * FROM employee;`, (err, res) => {
-        for (let i = 0; i < res.length; i++) {
-            employees.push(res[i].title)
-        };
-    });
-};
+
 const managers = [];
 // function getManagers();
 const departments = [];
@@ -127,12 +115,29 @@ function viewDepartments() {
 };
 //
 function updateEmployee() {
-    getEmployees;
-    getRoles;
+    function getEmployees() {
+        db.query(`SELECT employee.last_name FROM employee;`, (err, res) => {
+            for (let i = 0; i < res.length; i++) {
+                employees.push(res[i].title)
+            };
+        });
+    };
+    getEmployees();
+
+    function getRoles() {
+        db.query(`SELECT * FROM role;`, (err, res) => {
+            for (let i = 0; i < res.length; i++) {
+                roles.push(res[i].title)
+            };
+        });
+    };
+    getRoles();
+
+
     inquirer.prompt([
         {
             type: "list",
-            message: "Please select an employee to",
+            message: "Please select an employee to update.",
             choices: employees,
             name: "empName"
         },
