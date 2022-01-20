@@ -13,7 +13,10 @@
 ## Usage
         - This application is used in the terminal.
 ## Screenshot
-
+![Screenshot](assets/images/promptStart.jpg)
+![Screenshot](assets/images/employeeList.jpg)
+![Screenshot](assets/images/deptList.jpg)
+![Screenshot](assets/images/rolesList.jpg)
 ## Credits
 
 ## License
