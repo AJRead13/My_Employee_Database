@@ -163,12 +163,16 @@ function updateEmployee() {
         });
     };
     getRoles();
-    
+
+
+
+
 
 };
 //
 function addEmployee() {
     console.log("add employee");
+    
     inquirer.prompt([
         {
             type: "input",
