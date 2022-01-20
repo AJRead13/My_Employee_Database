@@ -79,16 +79,16 @@ function viewEmployees() {
     });
 };
 //
-function viewDepartmentEmployees() {
-    console.log("department employees");
-    db.query(`SELECT...;`, (err, res) => {
-        if (err) {
-            console.log(err);
-        }
-        console.table(res);
-        enterprise();
-    });
-};
+// function viewDepartmentEmployees() {
+//     console.log("department employees");
+//     db.query(`SELECT...;`, (err, res) => {
+//         if (err) {
+//             console.log(err);
+//         }
+//         console.table(res);
+//         enterprise();
+//     });
+// };
 //
 function viewRoles() {
     console.log("all roles");
@@ -113,12 +113,41 @@ function viewDepartments() {
 };
 //
 function updateEmployee() {
-    db.query(`SELECT first_name`)
-    console.log("update employee");
-    //prompt.inquirer to collect what is to be changed.
-    db.query(`UPDATE employee SET role = ${'name'} WHERE id = ${id};`, (err, res) => {
+    db.query(`SELECT employee.first_name, employee.last_name FROM employee`, (err, res) => {
+        if (err) {
+            console.log(err);
+        };
+        employees.map(res);
+        db.query(`SELECT role.title FROM role`, (req, res) => {
+            if (err) {
+                console.log(err);
+            };
+            roles.map(res);
+        })
+        inquirer.prompt([
+            {
+                type: "list",
+                message: "Please select an employee to",
+                choices: employees,
+                name: "empName"
+            },
+            {
+                type: "list",
+                message: "Please assign new role.",
+                choices: roles,
+                name: "newRole"
+            },
+        ])
+    }).then((data) => {
+        console.log("update employee");
+    db.query(`UPDATE employee SET role = ${data.newRole} WHERE first_name = ${data.empName};`, (err, res) => {
+        if (err) {
+            console.log(err);
+        };
         console.table(res);
         enterprise();
+    })
+    
     });
 };
 //
