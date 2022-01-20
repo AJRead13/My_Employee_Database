@@ -12,10 +12,24 @@ const db = mysql.createConnection(
 );
 
 const roles = [];
+function getRoles() {
+    db.query(`SELECT * FROM role;`, (err, res) => {
+        for (let i = 0; i < res.length; i++) {
+            roles.push(res[i].title)
+        };
+    });
+};
 const employees = [];
+function getEmployees() {
+    db.query(`SELECT * FROM employee;`, (err, res) => {
+        for (let i = 0; i < res.length; i++) {
+            employees.push(res[i].title)
+        };
+    });
+};
 const managers = [];
-
-
+// function getManagers();
+const departments = [];
 
 
 const options = [{
@@ -113,42 +127,33 @@ function viewDepartments() {
 };
 //
 function updateEmployee() {
-    db.query(`SELECT employee.first_name, employee.last_name FROM employee`, (err, res) => {
-        if (err) {
-            console.log(err);
-        };
-        employees.map(res);
-        db.query(`SELECT role.title FROM role`, (req, res) => {
+    getEmployees;
+    getRoles;
+    inquirer.prompt([
+        {
+            type: "list",
+            message: "Please select an employee to",
+            choices: employees,
+            name: "empName"
+        },
+        {
+            type: "list",
+            message: "Please assign new role.",
+            choices: roles,
+            name: "newRole"
+        },
+    ]).then((data) => {
+        console.log("update employee");
+        db.query(`UPDATE employee SET role = ${data.newRole} WHERE first_name = ${data.empName};`, (err, res) => {
             if (err) {
                 console.log(err);
             };
-            roles.map(res);
+            console.table(res);
+            enterprise();
         })
-        inquirer.prompt([
-            {
-                type: "list",
-                message: "Please select an employee to",
-                choices: employees,
-                name: "empName"
-            },
-            {
-                type: "list",
-                message: "Please assign new role.",
-                choices: roles,
-                name: "newRole"
-            },
-        ])
-    }).then((data) => {
-        console.log("update employee");
-    db.query(`UPDATE employee SET role = ${data.newRole} WHERE first_name = ${data.empName};`, (err, res) => {
-        if (err) {
-            console.log(err);
-        };
-        console.table(res);
-        enterprise();
     })
-    
-    });
+
+
 };
 //
 function addEmployee() {
